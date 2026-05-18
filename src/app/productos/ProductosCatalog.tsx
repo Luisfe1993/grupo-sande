@@ -190,13 +190,14 @@ export default function ProductosCatalog() {
                       Solicitar cotización
                       <ChevronRight className="h-4 w-4" />
                     </Link>
-                    <button
+                    <Link
+                      href={`/contacto?asunto=${encodeURIComponent(`Solicitud de ficha técnica: ${cat.name}`)}`}
                       className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-                      title="Ficha técnica (próximamente)"
+                      title={`Solicitar ficha técnica de ${cat.name}`}
                     >
                       <FileDown className="h-4 w-4" />
-                      PDF
-                    </button>
+                      Ficha Técnica
+                    </Link>
                   </div>
                 </div>
               );

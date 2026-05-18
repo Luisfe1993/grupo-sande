@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle } from "lucide-react";
 
 const companyOptions = [
@@ -11,6 +12,8 @@ const companyOptions = [
 ];
 
 export default function ContactForm() {
+  const searchParams = useSearchParams();
+  const asunto = searchParams.get("asunto") || "";
   const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -145,6 +148,7 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
+          defaultValue={asunto}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
           placeholder="Describa los productos o servicios que necesita, cantidades, plazos de entrega, etc."
         />
