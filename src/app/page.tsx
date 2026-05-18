@@ -1,0 +1,309 @@
+import Link from "next/link";
+import {
+  ArrowRight,
+  Wrench,
+  Link as LinkIcon,
+  Cpu,
+  Building,
+  HardHat,
+  Anchor,
+  Factory,
+  Shield,
+  Award,
+  Users,
+  Globe,
+  Phone,
+  ChevronRight,
+} from "lucide-react";
+import { companies } from "@/data/companies";
+import RevealOnScroll from "@/components/RevealOnScroll";
+
+const stats = [
+  { value: "85+", label: "Años de Trayectoria", icon: Award },
+  { value: "3", label: "Empresas Especializadas", icon: Building },
+  { value: "5.000+", label: "Productos Disponibles", icon: Factory },
+  { value: "40.000+", label: "Toneladas Capacidad Levante", icon: HardHat },
+];
+
+const sectors = [
+  { name: "Minería", icon: HardHat },
+  { name: "Construcción", icon: Building },
+  { name: "Manufactura", icon: Factory },
+  { name: "Puertos", icon: Anchor },
+  { name: "Obras Viales", icon: Globe },
+  { name: "Celulosas", icon: Factory },
+];
+
+const companyIcons = {
+  sande: Wrench,
+  fijaciones: LinkIcon,
+  sandiman: Cpu,
+};
+
+export default function HomePage() {
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="hero-gradient text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-400 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-8 bg-blue-400 rounded-sm" />
+                <div className="w-2 h-8 bg-red-400 rounded-sm" />
+                <div className="w-2 h-8 bg-emerald-400 rounded-sm" />
+              </div>
+              <span className="text-sm font-medium text-blue-300 tracking-wider uppercase">
+                Grupo Empresarial Chileno
+              </span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
+              Soluciones Industriales
+              <br />
+              <span className="text-blue-400">Integrales</span> para Chile
+            </h1>
+
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mb-10 leading-relaxed">
+              Tres empresas familiares consolidadas bajo un mismo grupo:
+              herramientas industriales, fijaciones de calidad mundial y
+              tecnologías de automatización. Más de 85 años sirviendo a la
+              industria.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/productos"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
+              >
+                Ver Catálogo
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/contacto"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-colors"
+              >
+                <Phone className="h-5 w-5" />
+                Solicitar Cotización
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, i) => (
+              <RevealOnScroll key={stat.label} delay={(i % 4) as 0 | 1 | 2 | 3}>
+                <div className="text-center">
+                  <stat.icon className="h-8 w-8 text-blue-700 mx-auto mb-3" />
+                  <div className="text-3xl font-bold text-gray-900">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+                </div>
+              </RevealOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Companies Section */}
+      <section className="bg-gray-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <RevealOnScroll>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Nuestras Empresas
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Tres pilares de excelencia industrial, cada uno especializado en
+                su área, unidos para ofrecer la solución más completa del mercado.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {companies.map((company, i) => {
+              const Icon =
+                companyIcons[company.id as keyof typeof companyIcons];
+              return (
+                <RevealOnScroll key={company.id} delay={(i + 1) as 1 | 2 | 3}>
+                  <div
+                    className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group h-full"
+                  >
+                  <div
+                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                    style={{ backgroundColor: company.colorLight }}
+                  >
+                    <Icon
+                      className="h-7 w-7"
+                      style={{ color: company.color }}
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">
+                    {company.tradeName}
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-4">{company.name}</p>
+                  <p className="text-gray-600 leading-relaxed mb-6">
+                    {company.description}
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="grid grid-cols-3 gap-4 mb-6 pt-6 border-t border-gray-100">
+                    {company.highlights.map((h) => (
+                      <div key={h.label} className="text-center">
+                        <div
+                          className="text-lg font-bold"
+                          style={{ color: company.color }}
+                        >
+                          {h.value}
+                        </div>
+                        <div className="text-xs text-gray-500">{h.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/empresas#${company.id}`}
+                    className="inline-flex items-center text-sm font-semibold group-hover:gap-2 gap-1 transition-all"
+                    style={{ color: company.color }}
+                  >
+                    Conocer más
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Sectors Served */}
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <RevealOnScroll>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Sectores que Servimos
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Soluciones probadas en las industrias más exigentes de Chile y
+                América.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+            {sectors.map((sector) => (
+              <div
+                key={sector.name}
+                className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors group cursor-default"
+              >
+                <sector.icon className="h-10 w-10 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">
+                  {sector.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Value Proposition */}
+      <section className="bg-gray-900 text-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <RevealOnScroll>
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+                  ¿Por Qué Grupo Sande?
+                </h2>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                Consolidamos la experiencia de tres empresas familiares
+                especializadas para ofrecer una solución única en el mercado
+                chileno: un solo punto de contacto para todas sus necesidades
+                industriales.
+              </p>
+              <Link
+                href="/contacto"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
+              >
+                Conversemos sobre su proyecto
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={2}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                {
+                  icon: Shield,
+                  title: "Calidad Certificada",
+                  desc: "ISO 9001 y más de 85 años respaldando nuestros productos y servicios.",
+                },
+                {
+                  icon: Users,
+                  title: "Asesoría Experta",
+                  desc: "Equipos técnicos especializados en cada línea de negocio.",
+                },
+                {
+                  icon: Globe,
+                  title: "Presencia Nacional",
+                  desc: "Oficinas en Santiago y Antofagasta. Cobertura en todo Chile.",
+                },
+                {
+                  icon: Factory,
+                  title: "Solución Integral",
+                  desc: "Desde un tornillo hasta un sistema de levante de 40.000 toneladas.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="bg-white/5 rounded-xl p-6 border border-white/10"
+                >
+                  <item.icon className="h-8 w-8 text-blue-400 mb-3" />
+                  <h3 className="font-semibold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-400">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-blue-700 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+            ¿Necesita una cotización para su proyecto?
+          </h2>
+          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            Contáctenos y nuestro equipo le entregará una propuesta
+            personalizada en menos de 24 horas.
+          </p>
+          <Link
+            href="/contacto"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
+          >
+            Solicitar Cotización
+            <ArrowRight className="h-5 w-5" />
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
