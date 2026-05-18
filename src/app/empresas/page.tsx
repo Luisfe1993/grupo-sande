@@ -9,9 +9,12 @@ import {
   Globe,
   Award,
   ExternalLink,
+  User,
 } from "lucide-react";
 import { companies } from "@/data/companies";
+import { teamMembers } from "@/data/team";
 import Link from "next/link";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 export const metadata: Metadata = {
   title: "Nuestras Empresas",
@@ -260,6 +263,58 @@ export default function EmpresasPage() {
           </section>
         );
       })}
+
+      {/* Team Section */}
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <RevealOnScroll>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Nuestro Equipo Directivo
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Un equipo con décadas de experiencia en la industria chilena,
+                comprometido con la excelencia y la innovación.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member, i) => {
+              const companyColor =
+                member.companyId === "sande"
+                  ? "bg-blue-100 text-blue-700"
+                  : member.companyId === "fijaciones"
+                    ? "bg-red-100 text-red-700"
+                    : member.companyId === "sandiman"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-gray-100 text-gray-700";
+
+              return (
+                <RevealOnScroll key={member.id} delay={((i % 3) + 1) as 1 | 2 | 3}>
+                  <div className="text-center group">
+                    <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-50 transition-colors">
+                      <User className="h-10 w-10 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-2">{member.role}</p>
+                    <span
+                      className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-3 ${companyColor}`}
+                    >
+                      {member.company}
+                    </span>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {member.bio}
+                    </p>
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

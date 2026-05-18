@@ -14,8 +14,10 @@ import {
   Globe,
   Phone,
   ChevronRight,
+  Quote,
 } from "lucide-react";
 import { companies } from "@/data/companies";
+import { testimonials, clientLogos } from "@/data/testimonials";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const stats = [
@@ -219,6 +221,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Video Section */}
+      <section className="bg-gray-900 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <RevealOnScroll>
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                  Vea Nuestro Trabajo en Acción
+                </h2>
+                <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                  Desde levantes sincronizados de miles de toneladas hasta la
+                  fabricación de fijaciones de precisión, nuestro trabajo habla
+                  por sí mismo.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Levante sincrónico de estructuras en minería",
+                    "Proceso de fabricación de fijaciones Mamut",
+                    "Automatización industrial con PLCs y variadores",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-3 text-gray-300"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                      <span className="text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/proyectos"
+                  className="inline-flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-300 transition-colors"
+                >
+                  Ver todos los proyectos
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={2}>
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gray-800 border border-gray-700">
+                {/* Placeholder for video embed — replace src with actual YouTube/Vimeo URL */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
+                  <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mb-4 border border-white/20">
+                    <svg
+                      className="w-8 h-8 text-white ml-1"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-gray-400">
+                    Video institucional — Próximamente
+                  </p>
+                </div>
+              </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </section>
+
       {/* Value Proposition */}
       <section className="bg-gray-900 text-white py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -282,6 +346,63 @@ export default function HomePage() {
             </div>
             </RevealOnScroll>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-gray-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <RevealOnScroll>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Lo Que Dicen Nuestros Clientes
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Empresas líderes en Chile confían en Grupo Sande para sus
+                operaciones más exigentes.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {testimonials.map((t, i) => (
+              <RevealOnScroll key={t.id} delay={(i % 2 === 0 ? 1 : 2) as 1 | 2}>
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm h-full flex flex-col">
+                  <Quote className="h-8 w-8 text-blue-200 mb-4 shrink-0" />
+                  <p className="text-gray-600 leading-relaxed mb-6 flex-1 italic">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="border-t border-gray-100 pt-4">
+                    <p className="font-semibold text-gray-900">{t.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {t.role} — {t.company}
+                    </p>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            ))}
+          </div>
+
+          {/* Client Logos */}
+          <RevealOnScroll>
+            <div className="border-t border-gray-200 pt-12">
+              <p className="text-center text-sm font-medium text-gray-500 uppercase tracking-wider mb-8">
+                Confían en nosotros
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                {clientLogos.map((logo) => (
+                  <div
+                    key={logo}
+                    className="flex items-center justify-center h-16 bg-white rounded-lg border border-gray-100 px-4"
+                  >
+                    <span className="text-sm font-semibold text-gray-400 text-center">
+                      {logo}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 

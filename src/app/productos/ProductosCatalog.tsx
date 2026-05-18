@@ -26,6 +26,7 @@ import {
   Monitor,
   ShieldCheck,
   Package,
+  FileDown,
 } from "lucide-react";
 import { productCategories } from "@/data/products";
 
@@ -181,13 +182,22 @@ export default function ProductosCatalog() {
                     </ul>
                   </div>
 
-                  <Link
-                    href="/contacto"
-                    className={`inline-flex items-center gap-1 text-sm font-semibold mt-4 ${colors.text} hover:underline`}
-                  >
-                    Solicitar cotización
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex items-center gap-4 mt-4">
+                    <Link
+                      href="/contacto"
+                      className={`inline-flex items-center gap-1 text-sm font-semibold ${colors.text} hover:underline`}
+                    >
+                      Solicitar cotización
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                    <button
+                      className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+                      title="Ficha técnica (próximamente)"
+                    >
+                      <FileDown className="h-4 w-4" />
+                      PDF
+                    </button>
+                  </div>
                 </div>
               );
             })}
