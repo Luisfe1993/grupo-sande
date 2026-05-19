@@ -42,3 +42,7 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+pptx_extract/
+extract_pptx.py
+*.pptx
