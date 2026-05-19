@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CookieConsent from "@/components/CookieConsent";
 import { locales, type Locale } from "@/i18n/config";
 
 export function generateStaticParams() {
@@ -24,6 +25,7 @@ export default async function LocaleLayout({
         <main className="flex-1">{children}</main>
         <Footer locale={lang as Locale} />
         <WhatsAppButton />
+        <CookieConsent locale={lang} />
       </div>
     </>
   );

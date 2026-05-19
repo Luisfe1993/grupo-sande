@@ -84,6 +84,7 @@ export default function CotizadorForm() {
       email: form.get("email"),
       phone: form.get("phone"),
       message: form.get("message"),
+      _hp: form.get("_hp"),
       items: items.map((i) => ({
         category: i.categoryName,
         name: i.productName,
@@ -349,6 +350,11 @@ export default function CotizadorForm() {
             <h2 className="text-lg font-bold text-gray-900 mb-4">
               2. Sus Datos de Contacto
             </h2>
+
+            {/* Honeypot */}
+            <div aria-hidden="true" className="absolute -left-[9999px]">
+              <input type="text" name="_hp" tabIndex={-1} autoComplete="off" />
+            </div>
 
             <div className="space-y-4">
               <div>

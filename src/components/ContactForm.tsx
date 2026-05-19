@@ -31,6 +31,7 @@ export default function ContactForm() {
       phone: formData.get("phone"),
       area: formData.get("area"),
       message: formData.get("message"),
+      _hp: formData.get("_hp"),
     };
 
     try {
@@ -78,6 +79,10 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot — invisible to humans, catches bots */}
+      <div aria-hidden="true" className="absolute -left-[9999px]">
+        <input type="text" name="_hp" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label

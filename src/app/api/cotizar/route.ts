@@ -11,6 +11,22 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
+// Simple in-memory rate limiter
+const submissions = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW = 60_000;
+const RATE_LIMIT_MAX = 3;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (submissions.get(ip) || []).filter(
+    (t) => now - t < RATE_LIMIT_WINDOW
+  );
+  if (timestamps.length >= RATE_LIMIT_MAX) return true;
+  timestamps.push(now);
+  submissions.set(ip, timestamps);
+  return false;
+}
+
 interface QuoteItem {
   name: string;
   category: string;
@@ -18,19 +34,50 @@ interface QuoteItem {
   notes: string;
 }
 
+const MAX_LEN = { name: 100, company: 150, email: 254, phone: 30, message: 5000 };
+
 export async function POST(request: Request) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Demasiadas solicitudes. Intente en un minuto." },
+        { status: 429 }
+      );
+    }
+
+    const contentLength = request.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > 100_000) {
+      return NextResponse.json({ error: "Solicitud demasiado grande." }, { status: 413 });
+    }
+
     const body = await request.json();
     const { name, company, email, phone, message, items } = body;
 
-    if (!name || !company || !email || !phone || !items || items.length === 0) {
+    // Honeypot
+    if (body._hp) {
+      return NextResponse.json({ success: true, message: "Cotización recibida correctamente." });
+    }
+
+    if (!name || !company || !email || !phone || !items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
-        {
-          error:
-            "Complete los campos obligatorios y seleccione al menos un producto.",
-        },
+        { error: "Complete los campos obligatorios y seleccione al menos un producto." },
         { status: 400 }
       );
+    }
+
+    if (items.length > 50) {
+      return NextResponse.json({ error: "Máximo 50 productos por cotización." }, { status: 400 });
+    }
+
+    if (
+      typeof name !== "string" || name.length > MAX_LEN.name ||
+      typeof company !== "string" || company.length > MAX_LEN.company ||
+      typeof email !== "string" || email.length > MAX_LEN.email ||
+      typeof phone !== "string" || phone.length > MAX_LEN.phone ||
+      (message && (typeof message !== "string" || message.length > MAX_LEN.message))
+    ) {
+      return NextResponse.json({ error: "Datos inválidos o demasiado largos." }, { status: 400 });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,14 +88,18 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!/^[+\d\s()-]{7,30}$/.test(phone)) {
+      return NextResponse.json({ error: "Teléfono inválido." }, { status: 400 });
+    }
+
     const itemRows = items
       .map(
         (item: QuoteItem) =>
           `<tr>
-          <td style="padding:8px;border:1px solid #ddd">${esc(item.category)}</td>
-          <td style="padding:8px;border:1px solid #ddd">${esc(item.name)}</td>
-          <td style="padding:8px;border:1px solid #ddd;text-align:center">${esc(item.quantity)}</td>
-          <td style="padding:8px;border:1px solid #ddd">${esc(item.notes || "—")}</td>
+          <td style="padding:8px;border:1px solid #ddd">${esc(String(item.category || "").slice(0, 200))}</td>
+          <td style="padding:8px;border:1px solid #ddd">${esc(String(item.name || "").slice(0, 200))}</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:center">${esc(String(item.quantity || "").slice(0, 50))}</td>
+          <td style="padding:8px;border:1px solid #ddd">${esc(String(item.notes || "—").slice(0, 500))}</td>
         </tr>`
       )
       .join("");

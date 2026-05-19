@@ -128,7 +128,15 @@ export default function Footer({ locale = "es" as Locale }: { locale?: Locale })
           <p className="text-xs text-gray-500">
             © {new Date().getFullYear()} Grupo Sande. {t.footer.rights}
           </p>
-          <div className="flex items-center gap-6 text-xs text-gray-500">
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <Link href={lp("/privacidad", locale)} className="hover:text-white transition-colors">
+              {locale === "en" ? "Privacy Policy" : "Privacidad"}
+            </Link>
+            <span>·</span>
+            <Link href={lp("/terminos", locale)} className="hover:text-white transition-colors">
+              {locale === "en" ? "Terms" : "Términos"}
+            </Link>
+            <span>·</span>
             <span>Sande S.A.</span>
             <span>·</span>
             <span>Tecbolt S.A.</span>

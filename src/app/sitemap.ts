@@ -3,57 +3,42 @@ import { productCategories } from "@/data/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://gruposande.cl";
+  const locales = ["", "/en"];
 
-  const productPages = productCategories.map((cat) => ({
-    url: `${baseUrl}/productos/${cat.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/empresas`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/productos`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/servicios`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/proyectos`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/noticias`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contacto`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.7,
-    },
-    ...productPages,
+  const staticPages = [
+    { path: "", priority: 1, changeFrequency: "monthly" as const },
+    { path: "/empresas", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/productos", priority: 0.9, changeFrequency: "weekly" as const },
+    { path: "/servicios", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/proyectos", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/noticias", priority: 0.7, changeFrequency: "weekly" as const },
+    { path: "/contacto", priority: 0.7, changeFrequency: "yearly" as const },
+    { path: "/cotizar", priority: 0.7, changeFrequency: "yearly" as const },
+    { path: "/privacidad", priority: 0.3, changeFrequency: "yearly" as const },
+    { path: "/terminos", priority: 0.3, changeFrequency: "yearly" as const },
   ];
+
+  const entries: MetadataRoute.Sitemap = [];
+
+  for (const locale of locales) {
+    for (const page of staticPages) {
+      entries.push({
+        url: `${baseUrl}${locale}${page.path}`,
+        lastModified: new Date(),
+        changeFrequency: page.changeFrequency,
+        priority: locale === "" ? page.priority : page.priority * 0.9,
+      });
+    }
+
+    for (const cat of productCategories) {
+      entries.push({
+        url: `${baseUrl}${locale}/productos/${cat.id}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: locale === "" ? 0.7 : 0.6,
+      });
+    }
+  }
+
+  return entries;
 }
