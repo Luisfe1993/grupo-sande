@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   Search,
+  X as XIcon,
   Filter,
   ChevronRight,
   Droplets,
@@ -115,8 +116,17 @@ export default function ProductosCatalog() {
                 placeholder="Buscar productos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-gray-600"
+                  aria-label="Limpiar búsqueda"
+                >
+                  <XIcon className="h-4 w-4" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -199,7 +209,7 @@ export default function ProductosCatalog() {
                       title={`Solicitar ficha técnica de ${cat.name}`}
                     >
                       <FileDown className="h-4 w-4" />
-                      Ficha Técnica
+                      Solicitar Ficha
                     </Link>
                   </div>
                 </div>

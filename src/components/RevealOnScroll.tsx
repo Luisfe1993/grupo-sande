@@ -19,6 +19,12 @@ export default function RevealOnScroll({
     const el = ref.current;
     if (!el) return;
 
+    // Fallback for browsers without IntersectionObserver
+    if (typeof IntersectionObserver === "undefined") {
+      el.classList.add("visible");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

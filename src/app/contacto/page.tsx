@@ -32,7 +32,7 @@ export default function ContactoPage() {
 
       <section className="bg-gray-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
@@ -162,7 +162,7 @@ export default function ContactoPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">
             Nuestra Ubicación
           </h2>
-          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm h-[400px]">
+          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm h-[280px] sm:h-[400px]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.4!2d-70.6506!3d-33.4489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a1b2c3d4e5%3A0x1234567890abcdef!2sAv.%20Libertador%20Bernardo%20O'Higgins%201771%2C%20Santiago%2C%20Chile!5e0!3m2!1ses!2scl!4v1700000000000"
               width="100%"

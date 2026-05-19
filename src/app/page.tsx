@@ -101,7 +101,7 @@ export default function HomePage() {
       {/* Stats Bar */}
       <section className="bg-white border-b border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {stats.map((stat, i) => (
               <RevealOnScroll key={stat.label} delay={(i % 4) as 0 | 1 | 2 | 3}>
                 <div className="text-center">
@@ -132,7 +132,7 @@ export default function HomePage() {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {companies.map((company, i) => {
               const Icon =
                 companyIcons[company.id as keyof typeof companyIcons];
@@ -205,11 +205,11 @@ export default function HomePage() {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {sectors.map((sector) => (
               <div
                 key={sector.name}
-                className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors group cursor-default"
+                className="flex flex-col items-center gap-2 sm:gap-3 p-4 sm:p-6 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors group cursor-default"
               >
                 <sector.icon className="h-10 w-10 text-gray-400 group-hover:text-blue-600 transition-colors" />
                 <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">
@@ -224,7 +224,7 @@ export default function HomePage() {
       {/* Video Section */}
       <section className="bg-gray-900 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <RevealOnScroll>
               <div>
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
@@ -262,20 +262,26 @@ export default function HomePage() {
 
             <RevealOnScroll delay={2}>
               <div className="relative aspect-video rounded-2xl overflow-hidden bg-gray-800 border border-gray-700">
-                {/* Placeholder for video embed — replace src with actual YouTube/Vimeo URL */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
-                  <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mb-4 border border-white/20">
-                    <svg
-                      className="w-8 h-8 text-white ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
+                    {[
+                      { label: "Levante Industrial", color: "bg-blue-500" },
+                      { label: "Fijaciones de Precisión", color: "bg-red-500" },
+                      { label: "Automatización", color: "bg-emerald-500" },
+                    ].map((item) => (
+                      <div key={item.label} className="text-center">
+                        <div className={`w-12 h-12 sm:w-16 sm:h-16 ${item.color} rounded-xl mx-auto mb-2 opacity-80`} />
+                        <p className="text-xs text-gray-400">{item.label}</p>
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-sm text-gray-400">
-                    Video institucional — Próximamente
-                  </p>
+                  <Link
+                    href="/contacto"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                  >
+                    Solicitar Demostración
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
             </RevealOnScroll>
@@ -286,7 +292,7 @@ export default function HomePage() {
       {/* Value Proposition */}
       <section className="bg-gray-900 text-white py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <RevealOnScroll>
               <div>
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6">
@@ -364,10 +370,10 @@ export default function HomePage() {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
             {testimonials.map((t, i) => (
               <RevealOnScroll key={t.id} delay={(i % 2 === 0 ? 1 : 2) as 1 | 2}>
-                <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm h-full flex flex-col">
+                <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm h-full flex flex-col">
                   <Quote className="h-8 w-8 text-blue-200 mb-4 shrink-0" />
                   <p className="text-gray-600 leading-relaxed mb-6 flex-1 italic">
                     &ldquo;{t.quote}&rdquo;

@@ -63,7 +63,7 @@ export default function ProyectosPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
                       {/* Image placeholder */}
                       <div
-                        className={`${colors.bg} p-8 flex flex-col items-center justify-center min-h-[240px]`}
+                        className={`${colors.bg} p-6 sm:p-8 flex flex-col items-center justify-center min-h-[180px] sm:min-h-[240px]`}
                       >
                         <div className="w-20 h-20 rounded-2xl bg-white/80 flex items-center justify-center mb-4">
                           {project.companyId === "sandiman" && (

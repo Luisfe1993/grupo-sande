@@ -58,7 +58,7 @@ export default function ServiciosPage() {
       {/* Services List */}
       <section className="bg-gray-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {services.map((service, idx) => {
               const Icon = iconMap[service.icon] || Package;
               const colors = companyColors[service.companyId];
@@ -72,7 +72,7 @@ export default function ServiciosPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
                     {/* Icon & Company Badge */}
                     <div
-                      className={`p-8 flex flex-col items-center justify-center ${colors.bg}`}
+                      className={`p-6 sm:p-8 flex flex-col items-center justify-center ${colors.bg}`}
                     >
                       <Icon
                         className={`h-12 w-12 mb-3 ${colors.text}`}
@@ -85,7 +85,7 @@ export default function ServiciosPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="lg:col-span-4 p-8">
+                    <div className="lg:col-span-4 p-6 sm:p-8">
                       <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
                         {service.name}
                       </h2>
@@ -93,7 +93,7 @@ export default function ServiciosPage() {
                         {service.longDescription}
                       </p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         {/* Features */}
                         <div>
                           <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">

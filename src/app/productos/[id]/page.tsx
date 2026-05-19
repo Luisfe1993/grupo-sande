@@ -158,11 +158,11 @@ export default async function ProductDetailPage({
             Productos en esta categoría ({category.products.length})
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {category.products.map((product) => (
               <div
                 key={product}
-                className={`rounded-xl border ${colors.border} p-5 hover:shadow-md transition-shadow`}
+                className={`rounded-xl border ${colors.border} p-4 sm:p-5 hover:shadow-md transition-shadow`}
               >
                 <div className="flex items-start gap-3">
                   <div
@@ -190,7 +190,7 @@ export default async function ProductDetailPage({
                     href={`/contacto?asunto=${encodeURIComponent(`Ficha técnica: ${product}`)}`}
                     className="text-xs font-medium text-gray-500 hover:text-gray-700"
                   >
-                    Ficha Técnica
+                    Solicitar Ficha
                   </Link>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export default async function ProductDetailPage({
       {/* CTA */}
       <section className="bg-gray-50 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
                 ¿Necesita cotización para {category.name}?
@@ -225,7 +225,7 @@ export default async function ProductDetailPage({
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <FileDown className="h-4 w-4" />
-                Ficha Técnica
+                Solicitar Ficha
               </Link>
             </div>
           </div>
