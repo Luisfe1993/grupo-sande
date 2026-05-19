@@ -23,7 +23,7 @@ export default function ProductosPage() {
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
             Explore nuestro catálogo consolidado con más de 5.000 productos
-            industriales de las tres empresas del grupo.
+            industriales de las empresas del grupo.
           </p>
         </div>
       </section>

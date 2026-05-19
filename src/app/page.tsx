@@ -5,6 +5,7 @@ import {
   Link as LinkIcon,
   Cpu,
   Building,
+  Building2,
   HardHat,
   Anchor,
   Factory,
@@ -21,8 +22,8 @@ import { testimonials, clientLogos } from "@/data/testimonials";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const stats = [
-  { value: "85+", label: "Años de Trayectoria", icon: Award },
-  { value: "3", label: "Empresas Especializadas", icon: Building },
+  { value: "90+", label: "Años de Trayectoria", icon: Award },
+  { value: "4", label: "Empresas Especializadas", icon: Building },
   { value: "5.000+", label: "Productos Disponibles", icon: Factory },
   { value: "40.000+", label: "Toneladas Capacidad Levante", icon: HardHat },
 ];
@@ -40,6 +41,7 @@ const companyIcons = {
   sande: Wrench,
   fijaciones: LinkIcon,
   sandiman: Cpu,
+  inmobiliaria: Building2,
 };
 
 export default function HomePage() {
@@ -72,9 +74,9 @@ export default function HomePage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mb-10 leading-relaxed">
-              Tres empresas familiares consolidadas bajo un mismo grupo:
-              herramientas industriales, fijaciones de calidad mundial y
-              tecnologías de automatización. Más de 85 años sirviendo a la
+              Cuatro empresas familiares consolidadas bajo un mismo grupo:
+              herramientas industriales, fijaciones de calidad mundial,
+              tecnologías de automatización y gestión patrimonial. Más de 90 años sirviendo a la
               industria.
             </p>
 
@@ -133,7 +135,7 @@ export default function HomePage() {
           </RevealOnScroll>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            {companies.map((company, i) => {
+            {companies.filter(c => c.id !== "inmobiliaria").map((company, i) => {
               const Icon =
                 companyIcons[company.id as keyof typeof companyIcons];
               return (
@@ -299,7 +301,7 @@ export default function HomePage() {
                   ¿Por Qué Grupo Sande?
                 </h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Consolidamos la experiencia de tres empresas familiares
+                Consolidamos la experiencia de cuatro empresas familiares
                 especializadas para ofrecer una solución única en el mercado
                 chileno: un solo punto de contacto para todas sus necesidades
                 industriales.
@@ -320,7 +322,7 @@ export default function HomePage() {
                 {
                   icon: Shield,
                   title: "Calidad Certificada",
-                  desc: "ISO 9001 y más de 85 años respaldando nuestros productos y servicios.",
+                  desc: "ISO 9001 y más de 90 años respaldando nuestros productos y servicios.",
                 },
                 {
                   icon: Users,

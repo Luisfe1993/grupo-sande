@@ -4,56 +4,63 @@ export interface TeamMember {
   role: string;
   company: string;
   companyId: string;
+  generation?: string;
   bio: string;
 }
 
 export const teamMembers: TeamMember[] = [
   {
-    id: "gf-sande",
-    name: "Gerencia Familiar Sande",
-    role: "Directorio — Grupo Sande",
-    company: "Grupo Sande",
-    companyId: "grupo",
-    bio: "Tres generaciones de la familia Sande lideran el grupo empresarial, combinando visión estratégica con conocimiento profundo de la industria chilena.",
-  },
-  {
-    id: "gg-sande",
-    name: "Gerencia General",
+    id: "luis-sande",
+    name: "Luis A. Sande",
     role: "Gerente General — Sande S.A.",
     company: "Sande",
     companyId: "sande",
-    bio: "Más de 20 años liderando la operación comercial de herramientas industriales, con foco en expansión de productos y servicio al cliente.",
+    generation: "3ª Generación",
+    bio: "Lidera la operación comercial de Sande S.A., con foco en la distribución de herramientas y maquinaria industrial a lo largo de Chile.",
   },
   {
-    id: "gg-tecbolt",
-    name: "Gerencia General",
+    id: "ricardo-sande",
+    name: "Ricardo Sande",
     role: "Gerente General — Tecbolt S.A.",
     company: "Fijaciones Mamut",
     companyId: "fijaciones",
-    bio: "Especialista en manufactura metalmecánica con experiencia en mercados internacionales y certificación de calidad ISO 9001.",
+    generation: "3ª Generación",
+    bio: "Dirige Tecbolt y la marca Fijaciones Mamut, con experiencia en manufactura metalmecánica y mercados internacionales.",
   },
   {
-    id: "gg-sandiman",
-    name: "Gerencia General",
+    id: "alejandro-sande",
+    name: "Alejandro Sande",
+    role: "Presidente del Directorio",
+    company: "Grupo Sande",
+    companyId: "grupo",
+    generation: "3ª Generación",
+    bio: "Presidente del Directorio del grupo, responsable de la visión estratégica y gobernanza del holding familiar.",
+  },
+  {
+    id: "javier-sande",
+    name: "Javier Sande",
     role: "Gerente General — Sandiman S.A.",
     company: "Sandiman",
     companyId: "sandiman",
-    bio: "Ingeniero con amplia experiencia en automatización industrial y servicios de levante sincrónico para minería y obras civiles.",
+    generation: "3ª Generación",
+    bio: "Lidera Sandiman, entregando soluciones de automatización industrial, servicios de levante sincronizado y robótica colaborativa.",
   },
   {
-    id: "dt-sandiman",
-    name: "Dirección Técnica",
-    role: "Director Técnico — Sandiman S.A.",
-    company: "Sandiman",
-    companyId: "sandiman",
-    bio: "Lidera los equipos de ingeniería en proyectos de levante sincrónico, piping e implementación de sistemas de automatización.",
-  },
-  {
-    id: "gc-sande",
-    name: "Gerencia Comercial",
-    role: "Gerente Comercial — Sande S.A.",
+    id: "francisco-sande",
+    name: "Francisco Sande",
+    role: "Sande S.A.",
     company: "Sande",
     companyId: "sande",
-    bio: "Responsable de la relación con clientes de gran minería, construcción e industria. Gestión del catálogo de más de 5.000 SKUs.",
+    generation: "4ª Generación",
+    bio: "Cuarta generación de la familia Sande, incorporado a la operación de Sande S.A. desde 2022.",
+  },
+  {
+    id: "jose-pedro-sande",
+    name: "José Pedro Sande",
+    role: "Tecbolt S.A.",
+    company: "Fijaciones Mamut",
+    companyId: "fijaciones",
+    generation: "4ª Generación",
+    bio: "Cuarta generación de la familia Sande, incorporado a la operación de Tecbolt desde 2024.",
   },
 ];

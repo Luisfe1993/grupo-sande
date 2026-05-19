@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Grupo Sande",
   },
   description:
-    "Grupo empresarial chileno con 85+ años de trayectoria. Herramientas industriales, fijaciones de calidad y tecnologías de automatización. Sande, Fijaciones Mamut y Sandiman.",
+    "Grupo empresarial chileno con 90+ años de trayectoria. Herramientas industriales, fijaciones de calidad y tecnologías de automatización. Sande, Fijaciones Mamut, Sandiman e Inmobiliaria Sande.",
   metadataBase: new URL("https://gruposande.cl"),
   openGraph: {
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Grupo Sande",
     title: "Grupo Sande — Soluciones Industriales para Chile",
     description:
-      "Grupo empresarial chileno con 85+ años de trayectoria. Herramientas industriales, fijaciones de calidad y tecnologías de automatización.",
+      "Grupo empresarial chileno con 90+ años de trayectoria. Herramientas industriales, fijaciones de calidad y tecnologías de automatización.",
   },
   twitter: {
     card: "summary_large_image",

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Wrench,
   Link as LinkIcon,
   Cpu,
+  Building2,
   MapPin,
   Phone,
   Mail,
@@ -19,18 +21,19 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 export const metadata: Metadata = {
   title: "Nuestras Empresas",
   description:
-    "Conozca las tres empresas del Grupo Sande: Sande S.A. (herramientas industriales), Tecbolt S.A. / Fijaciones Mamut (tornillería) y Sandiman S.A. (automatización). 85+ años de trayectoria.",
+    "Conozca las empresas del Grupo Sande: Sande S.A., Tecbolt / Fijaciones Mamut, Sandiman e Inmobiliaria Sande. Holding familiar chileno con 90+ años de trayectoria.",
   openGraph: {
     title: "Nuestras Empresas — Grupo Sande",
     description:
-      "Tres empresas familiares chilenas líderes en herramientas industriales, fijaciones y automatización.",
+      "Holding familiar chileno líder en herramientas industriales, fijaciones, automatización y gestión patrimonial.",
   },
 };
 
-const companyIcons = {
+const companyIcons: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   sande: Wrench,
   fijaciones: LinkIcon,
   sandiman: Cpu,
+  inmobiliaria: Building2,
 };
 
 export default function EmpresasPage() {
@@ -43,9 +46,9 @@ export default function EmpresasPage() {
             Nuestras Empresas
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Tres empresas familiares chilenas, cada una líder en su
-            especialidad, unidas para ofrecer soluciones industriales
-            integrales.
+            Holding familiar chileno con cuatro empresas especializadas,
+            cada una líder en su rubro, unidas para ofrecer soluciones
+            industriales integrales.
           </p>
         </div>
       </section>
@@ -58,36 +61,42 @@ export default function EmpresasPage() {
               Nuestra Historia
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Desde 1939, la familia Sande ha construido un legado industrial
-              que hoy abarca tres empresas especializadas.
+              Desde 1933, la familia Sande ha construido un legado industrial
+              que hoy abarca cuatro empresas especializadas con presencia nacional.
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row items-stretch gap-6 justify-center">
+          <div className="flex flex-col md:flex-row items-stretch gap-4 sm:gap-6 justify-center">
             {[
               {
-                year: "1939",
-                title: "Fundación Tecbolt",
-                desc: "Nace como fabricante de artículos de ferretería, iniciando una trayectoria de más de 85 años en la industria metalmecánica.",
-                color: "bg-red-600",
+                year: "1933",
+                title: "Los Orígenes",
+                desc: "Rufino Sande funda \"Rufino Sande, Gaztelurrutia y Cía\" en Chile, iniciando una tradición familiar en la industria.",
+                color: "bg-gray-700",
+              },
+              {
+                year: "1937–1939",
+                title: "Sande S.A.",
+                desc: "Luis Sande Eguren y luego Luis Sande Iriondo consolidan Sande S.A. como empresa de herramientas y maquinaria industrial.",
+                color: "bg-blue-600",
               },
               {
                 year: "1960s",
-                title: "Especialización en Fijaciones",
+                title: "Marca MAMUT",
                 desc: "Tecbolt se especializa en fabricación de tornillería y fijaciones bajo la marca MAMUT, expandiéndose a mercados internacionales.",
                 color: "bg-red-600",
               },
               {
-                year: "1990s",
-                title: "Nacimiento de Sande y Sandiman",
-                desc: "El grupo se diversifica con Sande S.A. (herramientas industriales) y Sandiman S.A. (automatización y servicios de ingeniería).",
-                color: "bg-blue-600",
+                year: "3ª Gen",
+                title: "Diversificación",
+                desc: "La tercera generación —Luis A., Ricardo, Alejandro y Javier Sande— diversifica el grupo con Sandiman e Inmobiliaria Sande.",
+                color: "bg-emerald-600",
               },
               {
-                year: "Hoy",
-                title: "Grupo Sande",
-                desc: "Tres empresas consolidadas ofreciendo la solución industrial más completa del mercado chileno, con presencia nacional e internacional.",
-                color: "bg-emerald-600",
+                year: "4ª Gen",
+                title: "Continuidad",
+                desc: "Francisco y José Pedro Sande se incorporan a la operación, asegurando la continuidad del legado familiar.",
+                color: "bg-purple-600",
               },
             ].map((item) => (
               <div
@@ -111,17 +120,17 @@ export default function EmpresasPage() {
 
       {/* Company Details */}
       {companies.map((company, idx) => {
-        const Icon = companyIcons[company.id as keyof typeof companyIcons];
+        const Icon = companyIcons[company.id] || Building2;
         const isEven = idx % 2 === 0;
 
         return (
           <section
             key={company.id}
             id={company.id}
-            className={`py-20 ${isEven ? "bg-gray-50" : "bg-white"}`}
+            className={`py-16 sm:py-20 ${isEven ? "bg-gray-50" : "bg-white"}`}
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                 {/* Info */}
                 <div>
                   <div className="flex items-center gap-4 mb-6">
@@ -145,6 +154,41 @@ export default function EmpresasPage() {
                   <p className="text-gray-600 leading-relaxed text-lg mb-8">
                     {company.longDescription}
                   </p>
+
+                  {/* Pillars */}
+                  {company.pillars && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                      {company.pillars.map((pillar) => (
+                        <div key={pillar.title} className="bg-white rounded-lg p-4 border border-gray-100">
+                          <h4 className="font-semibold text-gray-900 text-sm mb-1">
+                            {pillar.title}
+                          </h4>
+                          <p className="text-xs text-gray-500 leading-relaxed">
+                            {pillar.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Offices */}
+                  {company.offices && company.offices.length > 0 && (
+                    <div className="mb-6">
+                      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                        Sucursales
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {company.offices.map((office) => (
+                          <span
+                            key={office}
+                            className="px-2.5 py-1 text-xs rounded-full border border-gray-200 text-gray-600"
+                          >
+                            {office}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )} 
 
                   {/* Certifications */}
                   {company.certifications.length > 0 && (
@@ -177,6 +221,7 @@ export default function EmpresasPage() {
                     </div>
                   </div>
 
+                  {company.website && (
                   <a
                     href={company.website}
                     target="_blank"
@@ -187,10 +232,24 @@ export default function EmpresasPage() {
                     Visitar sitio web
                     <ExternalLink className="h-4 w-4" />
                   </a>
+                  )}
                 </div>
 
                 {/* Contact Card + Highlights */}
                 <div className="space-y-6">
+                  {/* Company Image */}
+                  {company.image && (
+                    <div className="rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                      <Image
+                        src={company.image}
+                        alt={company.tradeName}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+                  )}
+
                   {/* Highlights */}
                   <div className="grid grid-cols-3 gap-4">
                     {company.highlights.map((h) => (
@@ -235,6 +294,7 @@ export default function EmpresasPage() {
                           {company.email}
                         </span>
                       </div>
+                      {company.website && (
                       <div className="flex items-center gap-3">
                         <Globe className="h-5 w-5 text-gray-400 shrink-0" />
                         <a
@@ -246,6 +306,7 @@ export default function EmpresasPage() {
                           {company.website.replace("https://", "")}
                         </a>
                       </div>
+                      )}
                     </div>
                   </div>
 
@@ -288,7 +349,9 @@ export default function EmpresasPage() {
                     ? "bg-red-100 text-red-700"
                     : member.companyId === "sandiman"
                       ? "bg-emerald-100 text-emerald-700"
-                      : "bg-gray-100 text-gray-700";
+                      : member.companyId === "inmobiliaria"
+                        ? "bg-purple-100 text-purple-700"
+                        : "bg-gray-100 text-gray-700";
 
               return (
                 <RevealOnScroll key={member.id} delay={((i % 3) + 1) as 1 | 2 | 3}>
@@ -301,10 +364,15 @@ export default function EmpresasPage() {
                     </h3>
                     <p className="text-sm text-gray-500 mb-2">{member.role}</p>
                     <span
-                      className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-3 ${companyColor}`}
+                      className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-2 ${companyColor}`}
                     >
                       {member.company}
                     </span>
+                    {member.generation && (
+                      <span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-3 bg-gray-100 text-gray-600 ml-1">
+                        {member.generation}
+                      </span>
+                    )}
                     <p className="text-sm text-gray-600 leading-relaxed">
                       {member.bio}
                     </p>
