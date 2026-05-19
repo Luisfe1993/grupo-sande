@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const companyOptions = [
   "Sande — Herramientas Industriales",
@@ -15,10 +15,44 @@ export default function ContactForm() {
   const searchParams = useSearchParams();
   const asunto = searchParams.get("asunto") || "";
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      area: formData.get("area"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const result = await res.json();
+        throw new Error(result.error || "Error al enviar el formulario.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Error al enviar el formulario."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -156,11 +190,28 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors"
+        disabled={loading}
+        className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Send className="h-4 w-4" />
-        Enviar Solicitud
+        {loading ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Enviando...
+          </>
+        ) : (
+          <>
+            <Send className="h-4 w-4" />
+            Enviar Solicitud
+          </>
+        )}
       </button>
+
+      {error && (
+        <div className="flex items-center gap-2 text-red-600 text-sm mt-2">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          {error}
+        </div>
+      )}
     </form>
   );
 }

@@ -155,6 +155,27 @@ export default function ContactoPage() {
           </div>
         </div>
       </section>
+
+      {/* Google Maps */}
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+            Nuestra Ubicación
+          </h2>
+          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm h-[400px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.4!2d-70.6506!3d-33.4489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a1b2c3d4e5%3A0x1234567890abcdef!2sAv.%20Libertador%20Bernardo%20O'Higgins%201771%2C%20Santiago%2C%20Chile!5e0!3m2!1ses!2scl!4v1700000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación Grupo Sande — Santiago, Chile"
+            />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

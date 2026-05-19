@@ -59,3 +59,15 @@ html {
 .accent-sandiman {
   --accent: #047857;
 }
+
+/* WhatsApp button entrance animation */
+@keyframes bounce-once {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 1s ease-in-out 1;
+}

@@ -152,9 +152,12 @@ export default function ProductosCatalog() {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  <Link
+                    href={`/productos/${cat.id}`}
+                    className="text-lg font-bold text-gray-900 mb-2 hover:text-blue-700 transition-colors block"
+                  >
                     {cat.name}
-                  </h3>
+                  </Link>
                   <p className="text-sm text-gray-600 mb-4 leading-relaxed">
                     {cat.description}
                   </p>
