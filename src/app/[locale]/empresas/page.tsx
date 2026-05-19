@@ -17,6 +17,8 @@ import { companies } from "@/data/companies";
 import { teamMembers } from "@/data/team";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
 export const metadata: Metadata = {
   title: "Nuestras Empresas",
@@ -36,19 +38,24 @@ const companyIcons: Record<string, React.ComponentType<{ className?: string; sty
   inmobiliaria: Building2,
 };
 
-export default function EmpresasPage() {
+export default async function EmpresasPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = (locale === "en" ? "en" : "es") as Locale;
+  const t = getDictionary(lang);
   return (
     <>
       {/* Header */}
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Nuestras Empresas
+            {t.companies.title}
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Holding familiar chileno con cuatro empresas especializadas,
-            cada una líder en su rubro, unidas para ofrecer soluciones
-            industriales integrales.
+            {t.companies.description}
           </p>
         </div>
       </section>
@@ -58,11 +65,10 @@ export default function EmpresasPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Nuestra Historia
+              {t.companies.historyTitle}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Desde 1933, la familia Sande ha construido un legado industrial
-              que hoy abarca cuatro empresas especializadas con presencia nacional.
+              {t.companies.historyDesc}
             </p>
           </div>
 

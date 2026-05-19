@@ -29,7 +29,8 @@ import {
   Package,
   FileDown,
 } from "lucide-react";
-import { productCategories } from "@/data/products";
+import { productCategories, type ProductCategory } from "@/data/products";
+import CompareDrawer from "@/components/CompareDrawer";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Droplets,
@@ -70,6 +71,20 @@ const filters = [
 export default function ProductosCatalog() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [compareIds, setCompareIds] = useState<Set<string>>(new Set());
+
+  function toggleCompare(id: string) {
+    setCompareIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else if (next.size < 4) next.add(id);
+      return next;
+    });
+  }
+
+  const compareItems: ProductCategory[] = productCategories.filter((c) =>
+    compareIds.has(c.id)
+  );
 
   const filteredProducts = productCategories.filter((cat) => {
     const matchesFilter =
@@ -150,10 +165,21 @@ export default function ProductosCatalog() {
                   className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg transition-shadow group"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center ${colors.bg}`}
-                    >
-                      <Icon className={`h-6 w-6 ${colors.text}`} />
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-12 h-12 rounded-lg flex items-center justify-center ${colors.bg}`}
+                      >
+                        <Icon className={`h-6 w-6 ${colors.text}`} />
+                      </div>
+                      <label className="flex items-center gap-1.5 cursor-pointer" title="Comparar">
+                        <input
+                          type="checkbox"
+                          checked={compareIds.has(cat.id)}
+                          onChange={() => toggleCompare(cat.id)}
+                          className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="text-xs text-gray-400">Comparar</span>
+                      </label>
                     </div>
                     <span
                       className={`text-xs font-medium px-2.5 py-1 rounded-full ${colors.badge}`}
@@ -249,6 +275,12 @@ export default function ProductosCatalog() {
           </Link>
         </div>
       </section>
+
+      <CompareDrawer
+        items={compareItems}
+        onRemove={(id) => toggleCompare(id)}
+        onClear={() => setCompareIds(new Set())}
+      />
     </>
   );
 }

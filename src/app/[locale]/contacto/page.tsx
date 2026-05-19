@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
 export const metadata: Metadata = {
   title: "Contáctenos",
@@ -14,18 +16,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactoPage() {
+export default async function ContactoPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = (locale === "en" ? "en" : "es") as Locale;
+  const t = getDictionary(lang);
   return (
     <>
       {/* Header */}
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Contáctenos
+            {t.contact.title}
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Solicite una cotización, consulte por productos o servicios, o
-            simplemente conversemos sobre cómo podemos ayudar a su empresa.
+            {t.contact.description}
           </p>
         </div>
       </section>

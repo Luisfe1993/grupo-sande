@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { projects } from "@/data/projects";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
 export const metadata: Metadata = {
   title: "Proyectos y Casos de Éxito",
@@ -33,19 +35,24 @@ const companyColors: Record<string, { bg: string; text: string; badge: string }>
   sandiman: { bg: "bg-emerald-50", text: "text-emerald-700", badge: "bg-emerald-100 text-emerald-800" },
 };
 
-export default function ProyectosPage() {
+export default async function ProyectosPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = (locale === "en" ? "en" : "es") as Locale;
+  const t = getDictionary(lang);
   return (
     <>
       {/* Header */}
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Proyectos y Casos de Éxito
+            {t.projects.title}
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Soluciones reales para desafíos industriales complejos. Conozca cómo
-            hemos ayudado a nuestros clientes en los sectores más exigentes de
-            Chile.
+            {t.projects.description}
           </p>
         </div>
       </section>
@@ -139,16 +146,16 @@ export default function ProyectosPage() {
       <section className="bg-blue-700 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            ¿Tiene un proyecto similar?
+            {t.projects.ctaTitle}
           </h2>
           <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            Cuéntenos sobre su desafío y le presentaremos una solución a medida.
+            {t.projects.ctaDesc}
           </p>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
           >
-            Conversemos sobre su proyecto
+            {t.projects.ctaCTA}
             <ArrowRight className="h-5 w-5" />
           </Link>
         </div>

@@ -83,7 +83,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
   const category = productCategories.find((c) => c.id === id);
@@ -102,7 +102,7 @@ export async function generateMetadata({
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }) {
   const { id } = await params;
   const category = productCategories.find((c) => c.id === id);

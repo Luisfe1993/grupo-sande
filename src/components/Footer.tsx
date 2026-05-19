@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
-export default function Footer() {
+function lp(path: string, locale: Locale) {
+  return locale === "en" ? `/en${path}` : path;
+}
+
+export default function Footer({ locale = "es" as Locale }: { locale?: Locale }) {
+  const t = getDictionary(locale);
   return (
     <footer className="bg-gray-900 text-gray-300 mt-auto">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
@@ -17,21 +24,19 @@ export default function Footer() {
               <span className="text-lg font-bold text-white">Grupo Sande</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Grupo empresarial chileno con más de 85 años de trayectoria.
-              Soluciones industriales integrales en herramientas, fijaciones y
-              automatización.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Empresas */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Nuestras Empresas
+              {t.footer.companies}
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
-                  href="/empresas#sande"
+                  href={lp("/empresas#sande", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Sande S.A. — Herramientas Industriales
@@ -39,7 +44,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/empresas#fijaciones"
+                  href={lp("/empresas#fijaciones", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Tecbolt S.A. — Fijaciones Mamut
@@ -47,7 +52,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/empresas#sandiman"
+                  href={lp("/empresas#sandiman", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Sandiman S.A. — Automatización
@@ -59,12 +64,12 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Navegación
+              {t.footer.quickLinks}
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
-                  href="/productos"
+                  href={lp("/productos", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Catálogo de Productos
@@ -72,7 +77,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicios"
+                  href={lp("/servicios", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Servicios Especializados
@@ -80,7 +85,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/proyectos"
+                  href={lp("/proyectos", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Proyectos y Casos de Éxito
@@ -88,7 +93,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contacto"
+                  href={lp("/contacto", locale)}
                   className="hover:text-white transition-colors"
                 >
                   Solicitar Cotización
@@ -100,7 +105,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Contacto
+              {t.footer.contactUs}
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
@@ -121,8 +126,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} Grupo Sande. Todos los derechos
-            reservados.
+            © {new Date().getFullYear()} Grupo Sande. {t.footer.rights}
           </p>
           <div className="flex items-center gap-6 text-xs text-gray-500">
             <span>Sande S.A.</span>

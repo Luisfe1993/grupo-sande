@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { newsArticles } from "@/data/news";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
 export const metadata: Metadata = {
   title: "Noticias",
@@ -38,7 +40,14 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default function NoticiasPage() {
+export default async function NoticiasPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = (locale === "en" ? "en" : "es") as Locale;
+  const t = getDictionary(lang);
   const [featured, ...rest] = newsArticles;
   const featuredColors = companyColors[featured.companyId] || companyColors.grupo;
 
@@ -47,10 +56,9 @@ export default function NoticiasPage() {
       {/* Header */}
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Noticias</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">{t.news.title}</h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Novedades, proyectos destacados y eventos del Grupo Sande y sus
-            empresas.
+            {t.news.description}
           </p>
         </div>
       </section>

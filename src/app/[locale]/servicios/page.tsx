@@ -12,6 +12,8 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { services } from "@/data/services";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 
 export const metadata: Metadata = {
   title: "Servicios Especializados",
@@ -39,18 +41,24 @@ const companyColors: Record<string, { accent: string; bg: string; text: string }
   sandiman: { accent: "#047857", bg: "bg-emerald-50", text: "text-emerald-700" },
 };
 
-export default function ServiciosPage() {
+export default async function ServiciosPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const lang = (locale === "en" ? "en" : "es") as Locale;
+  const t = getDictionary(lang);
   return (
     <>
       {/* Header */}
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-            Servicios Especializados
+            {t.services.title}
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl">
-            Más allá de los productos, ofrecemos servicios de ingeniería y
-            asesoría técnica de clase mundial para sus proyectos más exigentes.
+            {t.services.description}
           </p>
         </div>
       </section>
@@ -156,17 +164,16 @@ export default function ServiciosPage() {
       <section className="bg-emerald-700 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            ¿Necesita un servicio personalizado?
+            {t.services.ctaTitle}
           </h2>
           <p className="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto">
-            Nuestro equipo de ingenieros puede diseñar una solución a medida
-            para su proyecto.
+            {t.services.ctaDesc}
           </p>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-700 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
           >
-            Conversemos
+            {t.services.ctaCTA}
             <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
