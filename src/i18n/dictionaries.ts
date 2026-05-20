@@ -151,6 +151,14 @@ const dictionaries = {
       featured: "Destacado",
       readMore: "Leer más",
     },
+    careers: {
+      title: "Trabaja con Nosotros",
+      description: "Únete al equipo de Grupo Sande.",
+    },
+    growth: {
+      title: "Crecimiento",
+      description: "Únase al Grupo Sande.",
+    },
     contact: {
       title: "Contacto",
       description:
@@ -379,6 +387,14 @@ const dictionaries = {
         "Latest news and updates from Grupo Sande and its companies.",
       featured: "Featured",
       readMore: "Read more",
+    },
+    careers: {
+      title: "Careers",
+      description: "Join the Grupo Sande team.",
+    },
+    growth: {
+      title: "Growth",
+      description: "Join Grupo Sande.",
     },
     contact: {
       title: "Contact",

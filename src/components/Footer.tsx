@@ -99,6 +99,22 @@ export default function Footer({ locale = "es" as Locale }: { locale?: Locale })
                   Solicitar Cotización
                 </Link>
               </li>
+              <li>
+                <Link
+                  href={lp("/trabaja-con-nosotros", locale)}
+                  className="hover:text-white transition-colors"
+                >
+                  {locale === "en" ? "Careers" : "Trabaja con Nosotros"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={lp("/crecimiento", locale)}
+                  className="hover:text-white transition-colors"
+                >
+                  {locale === "en" ? "Join the Group" : "Únase al Grupo"}
+                </Link>
+              </li>
             </ul>
           </div>
 

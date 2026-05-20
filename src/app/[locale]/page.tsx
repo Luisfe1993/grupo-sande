@@ -308,6 +308,31 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* M&A Banner */}
+      <section className="bg-gray-900 py-12 sm:py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="text-sm text-gray-400 uppercase tracking-wider font-semibold mb-1">
+                {lang === "en" ? "For Business Owners" : "Para Dueños de Empresas"}
+              </p>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">
+                {lang === "en"
+                  ? "Own an industrial company in Chile? Let's grow it together."
+                  : "¿Dueño de empresa industrial en Chile? Hagámosla crecer juntos."}
+              </h2>
+            </div>
+            <Link
+              href={lp("/crecimiento", lang)}
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+            >
+              {lang === "en" ? "Learn More" : "Conocer Más"}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-blue-700 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
