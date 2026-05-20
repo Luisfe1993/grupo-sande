@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 const companyOptions = [
   "Sande — Herramientas Industriales",
@@ -47,6 +48,7 @@ export default function ContactForm() {
       }
 
       setSubmitted(true);
+      trackEvent(EVENTS.CONTACT_FORM_SUBMIT, { area: String(data.area || "general") });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Error al enviar el formulario."

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
@@ -19,6 +20,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
+      onClick={() => trackEvent(EVENTS.CTA_WHATSAPP)}
       className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 hover:scale-110 transition-all duration-200 animate-bounce-once"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current">

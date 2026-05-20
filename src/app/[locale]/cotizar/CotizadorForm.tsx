@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   Search,
   X,
@@ -13,8 +13,10 @@ import {
   Trash2,
   ChevronDown,
   ChevronUp,
+  Download,
 } from "lucide-react";
 import { productCategories } from "@/data/products";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface QuoteItem {
   categoryId: string;
@@ -37,6 +39,7 @@ export default function CotizadorForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [contactInfo, setContactInfo] = useState({ name: "", company: "", email: "", phone: "" });
 
   const filtered = useMemo(() => {
     if (!search.trim()) return productCategories;
@@ -104,12 +107,99 @@ export default function CotizadorForm() {
         throw new Error(result.error || "Error al enviar la cotización.");
       }
       setSubmitted(true);
+      trackEvent(EVENTS.QUOTE_FORM_SUBMIT, { productCount: items.length });
+      setContactInfo({
+        name: String(data.name || ""),
+        company: String(data.company || ""),
+        email: String(data.email || ""),
+        phone: String(data.phone || ""),
+      });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Error al enviar la cotización."
       );
     } finally {
       setLoading(false);
+    }
+  }
+
+  function downloadPdf() {
+    trackEvent(EVENTS.QUOTE_PDF_DOWNLOAD, { productCount: items.length });
+    const today = new Date().toLocaleDateString("es-CL", { year: "numeric", month: "long", day: "numeric" });
+    const rows = items
+      .map(
+        (i, idx) =>
+          `<tr>
+            <td style="padding:8px;border-bottom:1px solid #e5e7eb">${idx + 1}</td>
+            <td style="padding:8px;border-bottom:1px solid #e5e7eb">${i.productName}</td>
+            <td style="padding:8px;border-bottom:1px solid #e5e7eb">${i.categoryName}</td>
+            <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:center">${i.quantity}</td>
+            <td style="padding:8px;border-bottom:1px solid #e5e7eb">${i.notes || "—"}</td>
+          </tr>`
+      )
+      .join("");
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cotización Grupo Sande</title>
+<style>body{font-family:Arial,sans-serif;margin:40px;color:#1f2937}
+table{width:100%;border-collapse:collapse;margin:20px 0}
+th{background:#1e3a5f;color:white;padding:10px 8px;text-align:left}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px}
+.logo{font-size:24px;font-weight:bold;color:#1e3a5f}
+.info{font-size:13px;color:#6b7280}
+.footer{margin-top:40px;padding-top:20px;border-top:2px solid #1e3a5f;font-size:12px;color:#6b7280;text-align:center}
+@media print{body{margin:20px}}</style></head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo">GRUPO SANDE</div>
+    <div class="info">Soluciones Industriales para Chile</div>
+    <div class="info">+56 2 2476 7000 · contacto@gruposande.cl</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:20px;font-weight:bold;color:#1e3a5f">SOLICITUD DE COTIZACIÓN</div>
+    <div class="info">Fecha: ${today}</div>
+  </div>
+</div>
+
+<div style="background:#f3f4f6;padding:16px;border-radius:8px;margin-bottom:20px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:14px">
+    <div><strong>Nombre:</strong> ${contactInfo.name}</div>
+    <div><strong>Empresa:</strong> ${contactInfo.company}</div>
+    <div><strong>Email:</strong> ${contactInfo.email}</div>
+    <div><strong>Teléfono:</strong> ${contactInfo.phone}</div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:40px">#</th>
+      <th>Producto</th>
+      <th>Categoría</th>
+      <th style="width:80px;text-align:center">Cant.</th>
+      <th>Notas</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
+</table>
+
+<p style="font-size:13px;color:#6b7280;margin-top:20px">
+  * Los precios serán confirmados por nuestro equipo comercial.<br>
+  * Nuestro equipo le responderá en un plazo máximo de 24 horas hábiles.
+</p>
+
+<div class="footer">
+  <p>Grupo Sande · Santiago & Antofagasta, Chile · gruposande.cl</p>
+  <p>Sande S.A. · Tecbolt S.A. · Sandiman S.A.</p>
+</div>
+</body></html>`;
+
+    const printWindow = window.open("", "_blank");
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => printWindow.print(), 300);
     }
   }
 
@@ -129,15 +219,24 @@ export default function CotizadorForm() {
             <span className="font-medium">la brevedad</span> con una
             cotización personalizada.
           </p>
-          <button
-            onClick={() => {
-              setSubmitted(false);
-              setItems([]);
-            }}
-            className="text-blue-700 font-medium hover:underline"
-          >
-            Crear otra cotización
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={downloadPdf}
+              className="inline-flex items-center gap-2 bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition-colors"
+            >
+              <Download className="h-4 w-4" />
+              Descargar PDF de Cotización
+            </button>
+            <button
+              onClick={() => {
+                setSubmitted(false);
+                setItems([]);
+              }}
+              className="text-blue-700 font-medium hover:underline"
+            >
+              Crear otra cotización
+            </button>
+          </div>
         </div>
       </section>
     );

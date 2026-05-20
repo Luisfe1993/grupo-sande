@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import type { Locale } from "@/i18n/config";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export default function GrowthContactForm({ locale }: { locale: Locale }) {
   const [loading, setLoading] = useState(false);
@@ -40,6 +41,7 @@ export default function GrowthContactForm({ locale }: { locale: Locale }) {
       }
 
       setSubmitted(true);
+      trackEvent(EVENTS.GROWTH_FORM_SUBMIT, { sector: String(data.sector || "unknown") });
     } catch (err) {
       setError(
         err instanceof Error

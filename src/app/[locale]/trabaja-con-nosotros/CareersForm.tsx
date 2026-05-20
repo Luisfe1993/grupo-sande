@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import type { Locale } from "@/i18n/config";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface Position {
   id: string;
@@ -54,6 +55,7 @@ export default function CareersForm({
       }
 
       setSubmitted(true);
+      trackEvent(EVENTS.CAREER_FORM_SUBMIT, { position: String(data.position || "spontaneous") });
     } catch (err) {
       setError(
         err instanceof Error

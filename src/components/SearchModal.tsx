@@ -13,6 +13,7 @@ const pages = [
   { title: "Servicios", href: "/servicios", section: "Páginas" },
   { title: "Proyectos", href: "/proyectos", section: "Páginas" },
   { title: "Noticias", href: "/noticias", section: "Páginas" },
+  { title: "Blog Técnico", href: "/blog", section: "Páginas" },
   { title: "Contacto", href: "/contacto", section: "Páginas" },
   { title: "Cotizar", href: "/cotizar", section: "Páginas" },
 ];

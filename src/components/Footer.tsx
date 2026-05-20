@@ -101,6 +101,14 @@ export default function Footer({ locale = "es" as Locale }: { locale?: Locale })
               </li>
               <li>
                 <Link
+                  href={lp("/blog", locale)}
+                  className="hover:text-white transition-colors"
+                >
+                  {locale === "en" ? "Technical Blog" : "Blog Técnico"}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href={lp("/trabaja-con-nosotros", locale)}
                   className="hover:text-white transition-colors"
                 >

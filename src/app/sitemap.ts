@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { productCategories } from "@/data/products";
 import { newsArticles } from "@/data/news";
+import { blogPosts } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://gruposande.cl";
@@ -17,6 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/cotizar", priority: 0.7, changeFrequency: "yearly" as const },
     { path: "/crecimiento", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/trabaja-con-nosotros", priority: 0.6, changeFrequency: "weekly" as const },
+    { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
+    { path: "/mineria", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/construccion", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/privacidad", priority: 0.3, changeFrequency: "yearly" as const },
     { path: "/terminos", priority: 0.3, changeFrequency: "yearly" as const },
   ];
@@ -48,6 +52,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(article.date),
         changeFrequency: "yearly",
         priority: locale === "" ? 0.6 : 0.5,
+      });
+    }
+
+    for (const post of blogPosts) {
+      entries.push({
+        url: `${baseUrl}${locale}/blog/${post.id}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly",
+        priority: locale === "" ? 0.7 : 0.6,
       });
     }
   }
