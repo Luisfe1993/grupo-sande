@@ -18,6 +18,8 @@ import {
   Newspaper,
   BookOpen,
   FolderOpen,
+  Briefcase,
+  UserPlus,
 } from "lucide-react";
 import SearchModal from "./SearchModal";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -51,6 +53,8 @@ function getNavItems(locale: Locale): NavItem[] {
       children: [
         { label: isEn ? "Companies" : "Empresas", href: "/empresas", icon: Building, desc: isEn ? "Our four companies" : "Nuestras cuatro empresas" },
         { label: isEn ? "Projects" : "Proyectos", href: "/proyectos", icon: FolderOpen, desc: isEn ? "Success stories" : "Casos de éxito" },
+        { label: isEn ? "Careers" : "Trabaja con Nosotros", href: "/trabaja-con-nosotros", icon: Briefcase, desc: isEn ? "Join our team" : "Únete a nuestro equipo" },
+        { label: isEn ? "Join the Group" : "Únase al Grupo", href: "/crecimiento", icon: UserPlus, desc: isEn ? "Growth & partnerships" : "Crecimiento y alianzas" },
       ],
     },
     {
