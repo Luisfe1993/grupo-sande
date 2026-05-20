@@ -21,6 +21,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
     { path: "/mineria", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/construccion", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/manufactura", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/puertos", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/obras-viales", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/celulosas", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/privacidad", priority: 0.3, changeFrequency: "yearly" as const },
     { path: "/terminos", priority: 0.3, changeFrequency: "yearly" as const },
   ];

@@ -16,6 +16,12 @@ const pages = [
   { title: "Blog Técnico", href: "/blog", section: "Páginas" },
   { title: "Contacto", href: "/contacto", section: "Páginas" },
   { title: "Cotizar", href: "/cotizar", section: "Páginas" },
+  { title: "Minería", href: "/mineria", section: "Industrias" },
+  { title: "Construcción", href: "/construccion", section: "Industrias" },
+  { title: "Manufactura", href: "/manufactura", section: "Industrias" },
+  { title: "Puertos", href: "/puertos", section: "Industrias" },
+  { title: "Obras Viales", href: "/obras-viales", section: "Industrias" },
+  { title: "Celulosas", href: "/celulosas", section: "Industrias" },
 ];
 
 interface SearchResult {

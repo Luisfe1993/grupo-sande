@@ -53,10 +53,10 @@ export default async function HomePage({
   const sectors = [
     { name: t.home.mining, icon: HardHat, href: "/mineria" },
     { name: t.home.construction, icon: Building, href: "/construccion" },
-    { name: t.home.manufacturing, icon: Factory, href: null },
-    { name: t.home.ports, icon: Anchor, href: null },
-    { name: t.home.roads, icon: Globe, href: null },
-    { name: t.home.cellulose, icon: Factory, href: null },
+    { name: t.home.manufacturing, icon: Factory, href: "/manufactura" },
+    { name: t.home.ports, icon: Anchor, href: "/puertos" },
+    { name: t.home.roads, icon: Globe, href: "/obras-viales" },
+    { name: t.home.cellulose, icon: Factory, href: "/celulosas" },
   ];
 
   const valueProps = [
@@ -183,24 +183,13 @@ export default async function HomePage({
             </div>
           </RevealOnScroll>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
-            {sectors.map((sector) => {
-              const classes = "flex flex-col items-center gap-2 sm:gap-3 p-4 sm:p-6 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors group";
-              if (sector.href) {
-                return (
-                  <Link key={sector.name} href={lp(sector.href, lang)} className={classes}>
-                    <sector.icon className="h-10 w-10 text-gray-400 group-hover:text-blue-600 transition-colors" />
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">{sector.name}</span>
-                    <span className="text-xs text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">{lang === "en" ? "View solutions →" : "Ver soluciones →"}</span>
-                  </Link>
-                );
-              }
-              return (
-                <div key={sector.name} className={`${classes} cursor-default`}>
-                  <sector.icon className="h-10 w-10 text-gray-400 group-hover:text-blue-600 transition-colors" />
-                  <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">{sector.name}</span>
-                </div>
-              );
-            })}
+            {sectors.map((sector) => (
+              <Link key={sector.name} href={lp(sector.href, lang)} className="flex flex-col items-center gap-2 sm:gap-3 p-4 sm:p-6 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors group">
+                <sector.icon className="h-10 w-10 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">{sector.name}</span>
+                <span className="text-xs text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">{lang === "en" ? "View solutions →" : "Ver soluciones →"}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
