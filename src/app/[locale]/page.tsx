@@ -141,11 +141,11 @@ export default async function HomePage({
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t.home.ourCompaniesDesc}</p>
             </div>
           </RevealOnScroll>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            {companies.filter((c) => c.id !== "inmobiliaria").map((company, i) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {companies.map((company, i) => {
               const Icon = companyIcons[company.id as keyof typeof companyIcons];
               return (
-                <RevealOnScroll key={company.id} delay={(i + 1) as 1 | 2 | 3}>
+                <RevealOnScroll key={company.id} delay={((i + 1) % 2 === 0 ? 2 : 1) as 1 | 2}>
                   <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group h-full">
                     <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: company.colorLight }}>
                       <Icon className="h-7 w-7" style={{ color: company.color }} />
